@@ -118,3 +118,26 @@ sudo ufw status verbose
 | 02-keys-configured | После создания учётной записи devops и настройки ключей |
 | 03-ssh-hardened | После hardening SSH (порт 2222, отключение паролей) |
 
+## 8. Веб-сервер
+
+| Параметр                              | Значение                                      |
+|---------------------------------------|-----------------------------------------------|
+| Пакет                                 | nginx                                         |
+| Конфигурация ресурса                  | `/etc/nginx/sites-available/devops-site`      |
+| Символическая ссылка                  | `/etc/nginx/sites-enabled/devops-site`        |
+| Каталог ресурса                       | `/var/www/devops-site`                        |
+| Владелец каталога                     | `devops:devops`                               |
+| Права каталога                        | `755`                                         |
+| Права файлов                          | `644`                                         |
+| Сертификат                            | `/etc/ssl/certs/devops.crt` (права `644`)     |
+| Закрытый ключ                         | `/etc/ssl/private/devops.key` (права `600`)   |
+| Срок действия сертификата             | 365 дней                                      |
+
+**Команда формирования сертификата:**
+
+```bash
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout /etc/ssl/private/devops.key \
+  -out /etc/ssl/certs/devops.crt \
+  -subj "/CN=devops.local" \
+  -addext "subjectAltName=DNS:devops.local"
