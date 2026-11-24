@@ -84,8 +84,9 @@ ClientAliveCountMax 2
 Проверка действующей конфигурации:
 ```bash
 sudo sshd -T | grep -Ei '^(port|permitrootlogin|passwordauthentication|maxauthtries|allowusers)'
+```
 
-6. Правила межсетевого экрана (UFW)Политики по умолчанию:
+## 6. Правила межсетевого экрана (UFW)Политики по умолчанию:
 Incoming: deny
 Outgoing: allow
 
@@ -110,7 +111,7 @@ sudo ufw enable
 
 sudo ufw status verbose
 
-7. Снимки состояния
+## 7. Снимки состояния
 
 | Наименование | Момент создания |
 | --- | --- |
@@ -141,3 +142,4 @@ sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -out /etc/ssl/certs/devops.crt \
   -subj "/CN=devops.local" \
   -addext "subjectAltName=DNS:devops.local"
+```
